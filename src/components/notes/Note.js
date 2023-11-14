@@ -1,4 +1,4 @@
-const Note = ({title}) => {
+const Note = ({title, content}) => {
   return (
     <span>{title}</span>
   )

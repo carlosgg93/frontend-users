@@ -7,12 +7,13 @@ const NotesList = ({notes, handleDelete}) => {
     <div>
       {notes.map(note =>
         <div key={note.id}>
-          <Note user={note} />
+          <Note title={note.title} content={note.content}/>&nbsp;
           <Button id={note.id} handleClick={handleDelete} value={note.title} text={'delete'} />
         </div>
       )}
     </div>
   )
 }
+
 
 export default NotesList

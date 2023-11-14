@@ -12,14 +12,23 @@ export const getAllNotes = () => {
 export const addNote = (note) =>  {
     return axios.post(baseUrl, note)
         .then(response => response.data)
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 export const deleteNote = (id) => {
-    return axios.delete(+`${baseUrl}/${id}`)
+    return axios.delete(`${baseUrl}/${id}`)
         .then(response => response.data)
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 export const updateNote = (id, note) => {
     return axios.put(`${baseUrl}/${id}`, note)
         .then(response => response.data)
+        .catch(error => {
+            console.log(error)
+        })
 }

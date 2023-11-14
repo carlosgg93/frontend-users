@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Title from '../components/common/Title.js'
 import Input from '../components/form/Input.js'
 import NotesList from '../components/notes/NotesList.js'
-import { getAllNotes, addNote, deleteNote, updateNote } from '../services/notes.js'
+import { getAllNotes, deleteNote} from '../services/notes.js'
 
 const NotesView = () => {
   
   const [ notes, setNotes ] = useState([]) 
-  const [ noteTitle, setNoteTitle ] = useState('')
-  const [ noteBody, setNoteBody] = useState('')
+  // const [ noteTitle, setNoteTitle ] = useState('')
+  // const [ noteBody, setNoteBody] = useState('')
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const NotesView = () => {
         setNotes(response)
       })
     }
-  , []);
+  , [setNotes]);
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value)
@@ -28,10 +28,13 @@ const NotesView = () => {
 
   const handleClickDelete = (event) => {
     event.preventDefault()
-    if(window.confirm(`Delete ${event.target.value}?`)){ 
+    if(window.confirm(`Delete "${event.target.value}" note?`)){ 
       deleteNote(event.target.id)
       .then((response) => {
-        console.log(response)
+        getAllNotes()
+          .then((response) => {
+            setNotes(response)
+          })
       })
       .catch((error) => {
         console.log(error)
