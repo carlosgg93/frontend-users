@@ -1,6 +1,6 @@
-const Button = (props) => {
+const Button = ({id, type, handleClick, value, text}) => {
     return (
-        <button id={props.id} type={props.type} onClick={props.handleClick} value={props.value} >{props.text}</button>
+        <button id={id} type={type} onClick={handleClick} value={value} >{text}</button>
     );
 }
 

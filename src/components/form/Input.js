@@ -1,8 +1,8 @@
-const Input = (props) => {
+const Input = ({text, onChange, value, placeholder}) => {
     return (
         <div className="input-form">
-            <span>{props.text}</span><br/>
-            <input type="text" onChange={props.onChange} value={props.value} />
+            <span>{text}</span><br/>
+            <input type="text" onChange={onChange} value={value} placeholder={placeholder}/>
         </div>
     );
 }
