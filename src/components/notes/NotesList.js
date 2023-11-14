@@ -1,4 +1,4 @@
-import Button from './form/Button.js'
+import Button from '../form/Button.js'
 import Note from './Note.js'
 
 const NotesList = ({notes, handleDelete}) => {

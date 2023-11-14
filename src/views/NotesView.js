@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import Title from '../Title.js'
-import Input from '../form/Input.js'
-import NotesList from '../NotesList.js'
-import { getAllNotes, addNote, deleteNote, updateNote } from '../../services/notes.js'
+import Title from '../components/common/Title.js'
+import Input from '../components/form/Input.js'
+import NotesList from '../components/notes/NotesList.js'
+import { getAllNotes, addNote, deleteNote, updateNote } from '../services/notes.js'
 
 const NotesView = () => {
   

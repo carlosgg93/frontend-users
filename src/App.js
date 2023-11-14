@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import LoginView from './components/views/LoginView.js'
-import NotesView from './components/views/NotesView.js'
+import LoginView from './views/LoginView.js'
+import NotesView from './views/NotesView.js'
 
 const App = () => {
 
