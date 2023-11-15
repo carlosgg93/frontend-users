@@ -4,17 +4,17 @@ import NotesView from './views/NotesView.js'
 
 const App = () => {
 
-  const [userLogged, setUserLogger] = useState(false)
+  const [user, setUser] = useState(null)
 
-  const handleChangeUserLogged = () => {
-    setUserLogger(!userLogged)
+  const handleChangeUser = (user) => {
+    setUser(user)
   }
 
   return (
     <div>
-      {!userLogged ? 
-        <LoginView handleChangeUserLogged={handleChangeUserLogged} />
-        : <NotesView />
+      {!user ? 
+        <LoginView handleChangeUser = {handleChangeUser} />
+        : <NotesView user = {user}/>
       }
     </div>
   )

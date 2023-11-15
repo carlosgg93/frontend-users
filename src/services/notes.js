@@ -9,16 +9,27 @@ export const getAllNotes = () => {
         })
 }
 
-export const addNote = (note) =>  {
-    return axios.post(baseUrl, note)
+export const addNote = (note, token) =>  {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+
+    return axios.post(baseUrl, note, { headers })
         .then(response => response.data)
         .catch(error => {
             console.log(error)
         })
 }
 
-export const deleteNote = (id) => {
-    return axios.delete(`${baseUrl}/${id}`)
+export const deleteNote = (id, token) => {
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+
+    return axios.delete(`${baseUrl}/${id}`, { headers })
         .then(response => response.data)
         .catch(error => {
             console.log(error)

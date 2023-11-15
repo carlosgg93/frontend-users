@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react'
 import Title from '../components/common/Title.js'
 import Input from '../components/form/Input.js'
 import NotesList from '../components/notes/NotesList.js'
-import { getAllNotes, deleteNote} from '../services/notes.js'
+import CreateNoteForm from '../components/form/CreateNoteForm.js'
+import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 
-const NotesView = () => {
+const NotesView = ({user}) => {
   
   const [ notes, setNotes ] = useState([]) 
-  // const [ noteTitle, setNoteTitle ] = useState('')
-  // const [ noteBody, setNoteBody] = useState('')
+  const [ noteTitle, setNoteTitle ] = useState('')
+  const [ noteContent, setNoteContent] = useState('')
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const NotesView = () => {
   const handleClickDelete = (event) => {
     event.preventDefault()
     if(window.confirm(`Delete "${event.target.value}" note?`)){ 
-      deleteNote(event.target.id)
+      deleteNote(event.target.id, user.token)
       .then((response) => {
         getAllNotes()
           .then((response) => {
@@ -42,13 +43,39 @@ const NotesView = () => {
     }
   }
 
-   return (
-     <div>
-       <Title text={'Notes List'} />
+  const handleSubmitCreateNote = async (event) => {
+    event.preventDefault()
+    const note = {
+      title: noteTitle,
+      content: noteContent
+    }
+
+    const noteCreated = await addNote(note, user.token)
+    setNotes(notes.concat(noteCreated))
+
+    setNoteTitle('')
+    setNoteContent('')
+  }
+  
+  const handleChangeTitle = (event) => {
+    event.preventDefault()
+    setNoteTitle(event.target.value)
+  }
+  
+  const handleChangeContent = (event) => {
+    event.preventDefault()
+    setNoteContent(event.target.value)
+  }
+
+  return (
+    <div>
+      <Title text={'Notes List'} />
       <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
       <NotesList handleDelete={handleClickDelete} notes={notes} />
-     </div>
-   )
+      <Title text={'Create Note'} />
+      <CreateNoteForm onSubmit={handleSubmitCreateNote} onChangeTitle={handleChangeTitle} onChangeContent={handleChangeContent} />
+    </div>
+  )
 }
 
 export default NotesView

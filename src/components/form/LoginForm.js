@@ -1,7 +1,7 @@
 import Input from "./Input";
 import Button from "./Button";
 
-const UserForm = ({onSubmit, onChangeUserName, onChangePassword, userName, pwd}) => {
+const LoginForm = ({onSubmit, onChangeUserName, onChangePassword, userName, pwd}) => {
     return (
         <form onSubmit={onSubmit}>
             <Input onChange={onChangeUserName} text={'Input Name'} value={userName} placeholder={"Username"}/><br/>
@@ -11,4 +11,4 @@ const UserForm = ({onSubmit, onChangeUserName, onChangePassword, userName, pwd})
     );
 }
 
-export default UserForm;
+export default LoginForm;

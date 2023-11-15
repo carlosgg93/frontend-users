@@ -4,7 +4,7 @@ import LoginForm from '../components/form/LoginForm.js'
 // import { getAllUsers, addUser, deleteUser, updateUser } from '../services/users.js'
 import {login} from '../services/login.js'
 
-const LoginView = ({ handleChangeUserLogged }) => {
+const LoginView = ({ handleChangeUser }) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -20,7 +20,7 @@ const LoginView = ({ handleChangeUserLogged }) => {
     event.preventDefault()
     const user = await login({userName, password})
     if(user){
-      handleChangeUserLogged(true)
+      handleChangeUser(user)
     }
     setUserName('')
     setPassword('')
