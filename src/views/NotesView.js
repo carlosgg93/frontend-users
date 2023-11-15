@@ -5,7 +5,7 @@ import NotesList from '../components/notes/NotesList.js'
 import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 
-const NotesView = ({user}) => {
+const NotesView = () => {
   
   const [ notes, setNotes ] = useState([]) 
   const [ noteTitle, setNoteTitle ] = useState('')
@@ -30,7 +30,7 @@ const NotesView = ({user}) => {
   const handleClickDelete = (event) => {
     event.preventDefault()
     if(window.confirm(`Delete "${event.target.value}" note?`)){ 
-      deleteNote(event.target.id, user.token)
+      deleteNote(event.target.id)
       .then((response) => {
         getAllNotes()
           .then((response) => {
@@ -50,7 +50,7 @@ const NotesView = ({user}) => {
       content: noteContent
     }
 
-    const noteCreated = await addNote(note, user.token)
+    const noteCreated = await addNote(note)
     setNotes(notes.concat(noteCreated))
 
     setNoteTitle('')

@@ -1,6 +1,8 @@
 import axios from 'axios';
 const baseUrl ='http://localhost:3001/api/notes'
 
+const token = window.localStorage.getItem('token')
+
 export const getAllNotes = () => {
     return axios.get(baseUrl)
         .then(response => response.data)
@@ -9,7 +11,7 @@ export const getAllNotes = () => {
         })
 }
 
-export const addNote = (note, token) =>  {
+export const addNote = (note) =>  {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -22,7 +24,7 @@ export const addNote = (note, token) =>  {
         })
 }
 
-export const deleteNote = (id, token) => {
+export const deleteNote = (id) => {
 
     const headers = {
         'Content-Type': 'application/json',

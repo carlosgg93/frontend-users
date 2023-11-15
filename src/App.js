@@ -4,17 +4,27 @@ import NotesView from './views/NotesView.js'
 
 const App = () => {
 
-  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('token')
+    if(loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      setToken(user)
+    }
+  }, [])
 
   const handleChangeUser = (user) => {
-    setUser(user)
+    setToken(user.token)
+    window.localStorage.setItem('token', JSON.stringify(user.token))
   }
+
 
   return (
     <div>
-      {!user ? 
+      {!token ? 
         <LoginView handleChangeUser = {handleChangeUser} />
-        : <NotesView user = {user}/>
+        : <NotesView />
       }
     </div>
   )
