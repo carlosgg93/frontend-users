@@ -1,7 +1,11 @@
 import axios from 'axios';
 const baseUrl ='http://localhost:3001/api/notes'
 
-const token = window.localStorage.getItem('token')
+let token = null;
+
+export const setToken = (newToken) => {
+    token = `Bearer ${newToken}`
+}
 
 export const getAllNotes = () => {
     return axios.get(baseUrl)
@@ -14,7 +18,7 @@ export const getAllNotes = () => {
 export const addNote = (note) =>  {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': token
     }
 
     return axios.post(baseUrl, note, { headers })
@@ -28,7 +32,7 @@ export const deleteNote = (id) => {
 
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': token
     }
 
     return axios.delete(`${baseUrl}/${id}`, { headers })

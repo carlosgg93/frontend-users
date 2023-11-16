@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Title from '../components/common/Title.js'
 import LoginForm from '../components/form/LoginForm.js'
-// import { getAllUsers, addUser, deleteUser, updateUser } from '../services/users.js'
 import {login} from '../services/login.js'
 
-const LoginView = ({ handleChangeUser }) => {
+const LoginView = ({ handleChangeToken }) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -20,7 +19,7 @@ const LoginView = ({ handleChangeUser }) => {
     event.preventDefault()
     const user = await login({userName, password})
     if(user){
-      handleChangeUser(user)
+      handleChangeToken(user)
     }
     setUserName('')
     setPassword('')
@@ -30,7 +29,13 @@ const LoginView = ({ handleChangeUser }) => {
   return(
     <div>
       <Title text={'Login'} />
-      <LoginForm onSubmit={handleLogin} onChangeUserName={handleChangeUserName} onChangePassword={handleChangePassword} userName={userName} pwd={password} />
+      <LoginForm 
+        onSubmit={handleLogin} 
+        onChangeUserName={handleChangeUserName}
+        onChangePassword={handleChangePassword}
+        userName={userName}
+        pwd={password} 
+      />
     </div>
   )
 }
