@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     const user = window.localStorage.getItem('user')
-    if(user){
+    if(user != null && user !== "null"){
       const userLogged = JSON.parse(user)
       setUser(userLogged)
       setToken(userLogged.token)
@@ -21,6 +21,7 @@ const App = () => {
 
   const handleChangeToken = (user) => {
     setUser(user)
+    setToken(user.token)
     window.localStorage.setItem('user', JSON.stringify(user))
   }
 
