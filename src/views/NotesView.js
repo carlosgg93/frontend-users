@@ -6,7 +6,7 @@ import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 
 
-const NotesView = () => {
+const NotesView = ({handleShowLoginButton}) => {
   
   const [ notes, setNotes ] = useState([]) 
   const [ noteTitle, setNoteTitle ] = useState('')
@@ -72,12 +72,16 @@ const NotesView = () => {
     <div>
       <Title text={'Notes List'} />
       <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
-      <NotesList handleDelete={handleClickDelete} notes={notes} />
+      <NotesList 
+        handleDelete={handleClickDelete}
+        notes={notes}
+      />
       <Title text={'Create Note'} />
       <CreateNoteForm 
         onSubmit={handleSubmitCreateNote} 
         onChangeTitle={handleChangeTitle} 
         onChangeContent={handleChangeContent}
+        handleShowLoginButton={handleShowLoginButton}
         noteTitle={noteTitle} 
         noteContent={noteContent}
       />

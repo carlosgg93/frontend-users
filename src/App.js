@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import LoginView from './views/LoginView.js'
 import NotesView from './views/NotesView.js'
 import Button from './components/form/Button.js'
 import {setToken} from './services/notes.js'
+import Toggable from './components/common/Toggable.js'
 
 const App = () => {
 
@@ -18,6 +19,12 @@ const App = () => {
       setUser(null)
     }
   }, [])
+
+  const toggableRef = useRef()
+
+  const handleShowLoginButton = () =>{
+    toggableRef.current.handleChangeVisibility()
+  }
 
   const handleChangeToken = (user) => {
     setUser(user)
@@ -35,10 +42,12 @@ const App = () => {
   return (
     <div>
       {!user ? 
-        <LoginView handleChangeToken = {handleChangeToken} />
+          <LoginView handleChangeToken = {handleChangeToken} />
         : <>
-            <Button type="button" text="Logout" handleClick={handleLogout}/>  
-            <NotesView />
+            <Toggable ref={toggableRef}>
+              <Button type="button" text="Logout" handleClick={handleLogout}/>  
+            </Toggable>
+            <NotesView handleShowLoginButton={handleShowLoginButton} />
           </>
       }
     </div>
