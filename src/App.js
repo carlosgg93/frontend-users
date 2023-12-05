@@ -8,6 +8,7 @@ import Toggable from './components/common/Toggable.js'
 const App = () => {
 
   const [user, setUser] = useState(null)
+  const toggableRef = useRef()
 
   useEffect(() => {
     const user = window.localStorage.getItem('user')
@@ -19,8 +20,6 @@ const App = () => {
       setUser(null)
     }
   }, [])
-
-  const toggableRef = useRef()
 
   const handleShowLoginButton = () =>{
     toggableRef.current.handleChangeVisibility()
