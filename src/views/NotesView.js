@@ -7,8 +7,7 @@ import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeNotes } from '../reducers/noteReducer.js'
 
-
-const NotesView = ({handleShowLoginButton}) => {
+const NotesView = ({pageSelected}) => {
 
   const dispatch = useDispatch()
   const storeNotes = useSelector(state => state.notes)
@@ -17,8 +16,6 @@ const NotesView = ({handleShowLoginButton}) => {
   const [ noteTitle, setNoteTitle ] = useState('')
   const [ noteContent, setNoteContent] = useState('')
   const [ filter, setFilter ] = useState('')
-
-  console.log("render NotesView")
 
   useEffect(() => {
     getAllNotes()
@@ -80,21 +77,28 @@ const NotesView = ({handleShowLoginButton}) => {
 
   return (
     <div>
-      <Title text={'Notes List'} />
-      <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
-      <NotesList 
-        handleDelete={handleClickDelete}
-        notes={notes}
-      />
-      <Title text={'Create Note'} />
-      <CreateNoteForm 
-        onSubmit={handleSubmitCreateNote} 
-        onChangeTitle={handleChangeTitle} 
-        onChangeContent={handleChangeContent}
-        handleShowLoginButton={handleShowLoginButton}
-        noteTitle={noteTitle} 
-        noteContent={noteContent}
-      />
+      {pageSelected === 0 &&
+        <>
+          <Title text={'Notes List'} />
+          <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
+          <NotesList 
+            handleDelete={handleClickDelete}
+            notes={notes}
+          />
+        </>
+      }
+      {pageSelected === 1 &&
+        <>
+          <Title text={'Create Note'} />
+          <CreateNoteForm 
+            onSubmit={handleSubmitCreateNote} 
+            onChangeTitle={handleChangeTitle} 
+            onChangeContent={handleChangeContent}
+            noteTitle={noteTitle} 
+            noteContent={noteContent}
+          />
+        </>
+      }
     </div>
   )
 }

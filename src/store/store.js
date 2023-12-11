@@ -3,6 +3,8 @@ import rootReducer from "../reducers/rootReducer.js";
 
 const state = {
   notes : [],
+  user: null,
+  pageSelected: 0
 }
 
 const store = configureStore({ 

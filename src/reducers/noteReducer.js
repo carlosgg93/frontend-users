@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  notes: []
+  notes: [],
+  pageSelected: 0
 }
 
 const notesSlice = createSlice({
@@ -14,20 +15,11 @@ const notesSlice = createSlice({
         newNote: (notes, action) => {
           return [...notes, action.payload];
         },
-        toggleImportanceOf: (notes, action) => {
-          const id = action.payload
-          const noteToChange = notes.find(n => n.id === id)
-          const changedNote = {
-            ...noteToChange,
-            important: !noteToChange.important
-          }
-          return notes.map((note) => {
-            return note.id !== id ? note : changedNote
-          })
+        setPageSelected: (pageSelected, action) => {
+          return pageSelected = action.payload;
         }
-
     },
 });
 
-export const { newNote, toggleImportanceOf, initializeNotes } = notesSlice.actions;
+export const { newNote, initializeNotes, setPageSelected } = notesSlice.actions;
 export default notesSlice.reducer;
