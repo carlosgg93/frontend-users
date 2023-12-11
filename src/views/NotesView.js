@@ -4,9 +4,14 @@ import Input from '../components/form/Input.js'
 import NotesList from '../components/notes/NotesList.js'
 import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeNotes } from '../reducers/noteReducer.js'
 
 
 const NotesView = ({handleShowLoginButton}) => {
+
+  const dispatch = useDispatch()
+  const storeNotes = useSelector(state => state.notes)
   
   const [ notes, setNotes ] = useState([]) 
   const [ noteTitle, setNoteTitle ] = useState('')
@@ -16,10 +21,14 @@ const NotesView = ({handleShowLoginButton}) => {
   useEffect(() => {
     getAllNotes()
       .then((response) => {
-        setNotes(response)
+        dispatch(initializeNotes(response))
       })
     }
-  , [setNotes]);
+  , [dispatch]);
+  
+  useEffect(() => {
+    setNotes(storeNotes)
+  }, [storeNotes])
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value)
