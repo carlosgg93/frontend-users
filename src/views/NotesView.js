@@ -18,13 +18,14 @@ const NotesView = ({handleShowLoginButton}) => {
   const [ noteContent, setNoteContent] = useState('')
   const [ filter, setFilter ] = useState('')
 
+  console.log("render NotesView")
+
   useEffect(() => {
     getAllNotes()
       .then((response) => {
         dispatch(initializeNotes(response))
       })
-    }
-  , [dispatch]);
+    },[dispatch]);
   
   useEffect(() => {
     setNotes(storeNotes)

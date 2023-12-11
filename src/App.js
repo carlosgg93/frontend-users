@@ -21,6 +21,8 @@ const App = () => {
     }
   }, [])
 
+  console.log("render App")
+
   const handleShowLoginButton = () =>{
     toggableRef.current.handleChangeVisibility()
   }
