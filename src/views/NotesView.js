@@ -5,14 +5,14 @@ import NotesList from '../components/notes/NotesList.js'
 import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { initializeNotes } from '../reducers/noteReducer.js'
+import { setNotes, newNote, filterNotesBy } from '../reducers/noteReducer.js'
 
-const NotesView = ({pageSelected}) => {
+const NotesView = () => {
 
   const dispatch = useDispatch()
-  const storeNotes = useSelector(state => state.notes)
+  const notes = useSelector(state => state.notes)
+  const pageSelected = useSelector(state => state.page)
   
-  const [ notes, setNotes ] = useState([]) 
   const [ noteTitle, setNoteTitle ] = useState('')
   const [ noteContent, setNoteContent] = useState('')
   const [ filter, setFilter ] = useState('')
@@ -20,19 +20,13 @@ const NotesView = ({pageSelected}) => {
   useEffect(() => {
     getAllNotes()
       .then((response) => {
-        dispatch(initializeNotes(response))
+        dispatch(setNotes(response))
       })
     },[dispatch]);
-  
-  useEffect(() => {
-    setNotes(storeNotes)
-  }, [storeNotes])
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value)
-    setNotes(notes.filter((note) => {
-      return note.title.includes(filter)
-    }))
+    dispatch(filterNotesBy(filter))
   }
 
   const handleClickDelete = (event) => {
@@ -42,7 +36,7 @@ const NotesView = ({pageSelected}) => {
       .then((response) => {
         getAllNotes()
           .then((response) => {
-            setNotes(response)
+            dispatch(setNotes(response))
           })
       })
       .catch((error) => {
@@ -59,7 +53,7 @@ const NotesView = ({pageSelected}) => {
     }
 
     const noteCreated = await addNote(note)
-    setNotes(notes.concat(noteCreated))
+    dispatch(newNote(noteCreated))
 
     setNoteTitle('')
     setNoteContent('')

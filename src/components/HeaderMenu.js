@@ -1,11 +1,15 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Button from './form/Button'
 
+import { useDispatch } from 'react-redux'
+import {setPage} from '../reducers/pageReducer.js'
+
 const HeaderMenu = () =>{
-  const [pageSelected, setPageSelected] = useState(0)
+  // const [pageSelected, setPageSelected] = useState(0)
+  const dispatch = useDispatch()
 
   const handleChangeOptionSelected = (page) =>{
-    setPageSelected(page)
+    dispatch(setPage(page))
   }
   
   return (

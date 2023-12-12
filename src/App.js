@@ -6,18 +6,14 @@ import Toggable from './components/common/Toggable.js'
 import HeaderMenu from './components/HeaderMenu.js'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { initUser } from './reducers/userReducer.js'
-import {setPageSelected} from './reducers/noteReducer.js'
+import { initUser, logOutUser } from './reducers/userReducer.js'
 
 const App = () => {
 
-  const [user, setUser] = useState(null)
-  const [pageSelected, setPageSelected] = useState(0)
   const toggableRef = useRef()
   const dispatch = useDispatch()
   
-  const storeUser = useSelector(state => state.user)
-  const storePageSelected = useSelector(state => state.pageSelected)
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     const user = window.localStorage.getItem('user')
@@ -28,19 +24,15 @@ const App = () => {
       setToken(userLogged.token)
     }
     dispatch(initUser(userLogged))
-  }, [])
+  }, [dispatch])
 
-  useEffect(() => {
-    setUser(storeUser)
-    setPageSelected(storePageSelected)
-  }, [storeUser, storePageSelected])
 
-  const handleShowLoginButton = () =>{
-    toggableRef.current.handleChangeVisibility()
-  }
+  // const handleShowLoginButton = () =>{
+  //   toggableRef.current.handleChangeVisibility()
+  // }
 
   const handleChangeToken = (user) => {
-    setUser(user)
+    dispatch(initUser(user))
     setToken(user.token)
     window.localStorage.setItem('user', JSON.stringify(user))
   }
@@ -49,7 +41,7 @@ const App = () => {
     event.preventDefault()
     window.localStorage.removeItem('user')
     setToken(null)
-    setUser(null)
+    dispatch(logOutUser())
   }
   
   return (
@@ -61,7 +53,7 @@ const App = () => {
               <HeaderMenu />
               <button type='button' onClick={handleLogout}>Logout</button>
             </Toggable>
-            <NotesView pageSelected= {pageSelected} />
+            <NotesView />
 
           </>
       }

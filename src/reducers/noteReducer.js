@@ -2,24 +2,23 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   notes: [],
-  pageSelected: 0
 }
 
 const notesSlice = createSlice({
     name: 'notes',
     initialState,
     reducers: {
-        initializeNotes: (notes, action) => {
+        setNotes: (notes, action) => {
           return [...action.payload]
         },
         newNote: (notes, action) => {
           return [...notes, action.payload];
         },
-        setPageSelected: (pageSelected, action) => {
-          return pageSelected = action.payload;
+        filterNotesBy: (notes, action) => {
+          return notes.filter(note => note.title.toLowerCase().includes(action.payload.toLowerCase()))
         }
     },
 });
 
-export const { newNote, initializeNotes, setPageSelected } = notesSlice.actions;
+export const { newNote, setNotes, filterNotesBy } = notesSlice.actions;
 export default notesSlice.reducer;
