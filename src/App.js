@@ -4,6 +4,7 @@ import NotesView from './views/NotesView.js'
 import {setToken} from './services/notes.js'
 import Toggable from './components/common/Toggable.js'
 import HeaderMenu from './components/HeaderMenu.js'
+import { BrowserRouter } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { initUser, logOutUser } from './reducers/userReducer.js'
@@ -12,7 +13,7 @@ const App = () => {
 
   const toggableRef = useRef()
   const dispatch = useDispatch()
-  
+
   const user = useSelector(state => state.user)
 
   useEffect(() => {
@@ -48,14 +49,14 @@ const App = () => {
     <div>
       {!user ? 
           <LoginView handleChangeToken = {handleChangeToken} />
-        : <>
+        : <BrowserRouter>
             <Toggable ref={toggableRef}>
               <HeaderMenu />
               <button type='button' onClick={handleLogout}>Logout</button>
             </Toggable>
             <NotesView />
 
-          </>
+          </BrowserRouter>
       }
     </div>
   )

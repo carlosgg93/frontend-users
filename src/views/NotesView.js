@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Route, Routes } from 'react-router-dom'
 import Title from '../components/common/Title.js'
 import Input from '../components/form/Input.js'
 import NotesList from '../components/notes/NotesList.js'
@@ -11,7 +12,6 @@ const NotesView = () => {
 
   const dispatch = useDispatch()
   const notes = useSelector(state => state.notes)
-  const pageSelected = useSelector(state => state.page)
   
   const [ noteTitle, setNoteTitle ] = useState('')
   const [ noteContent, setNoteContent] = useState('')
@@ -75,8 +75,8 @@ const NotesView = () => {
   }
 
   return (
-    <div>
-      {pageSelected === 0 &&
+    <Routes>
+      <Route path='/notes'  element={
         <>
           <Title text={'Notes List'} />
           <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
@@ -85,8 +85,9 @@ const NotesView = () => {
             notes={filteredNotes}
           />
         </>
-      }
-      {pageSelected === 1 &&
+      } />
+
+      <Route path='/' element={
         <>
           <Title text={'Create Note'} />
           <CreateNoteForm 
@@ -97,8 +98,8 @@ const NotesView = () => {
             noteContent={noteContent}
           />
         </>
-      }
-    </div>
+      }/>
+    </Routes>
   )
 }
 
