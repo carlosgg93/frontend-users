@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import LoginView from './views/LoginView.js'
 import NotesView from './views/NotesView.js'
 import {setToken} from './services/notes.js'

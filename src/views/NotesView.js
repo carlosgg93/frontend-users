@@ -5,7 +5,7 @@ import NotesList from '../components/notes/NotesList.js'
 import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { setNotes, newNote, filterNotesBy } from '../reducers/noteReducer.js'
+import { setNotes, newNote } from '../reducers/noteReducer.js'
 
 const NotesView = () => {
 
@@ -15,18 +15,23 @@ const NotesView = () => {
   
   const [ noteTitle, setNoteTitle ] = useState('')
   const [ noteContent, setNoteContent] = useState('')
+  const [ filteredNotes, setFilteredNotes ] = useState([])
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
     getAllNotes()
       .then((response) => {
         dispatch(setNotes(response))
+        setFilteredNotes(response)
       })
     },[dispatch]);
 
   const handleChangeFilter = (event) => {
+    event.preventDefault()
     setFilter(event.target.value)
-    dispatch(filterNotesBy(filter))
+    setFilteredNotes(notes.filter((note) => {
+      return note.title.toLowerCase().includes(event.target.value.toLowerCase())
+    }))
   }
 
   const handleClickDelete = (event) => {
@@ -77,7 +82,7 @@ const NotesView = () => {
           <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
           <NotesList 
             handleDelete={handleClickDelete}
-            notes={notes}
+            notes={filteredNotes}
           />
         </>
       }
