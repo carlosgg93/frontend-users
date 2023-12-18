@@ -7,7 +7,7 @@ const NotesList = ({notes, handleDelete}) => {
     <div>
       {notes && notes.map(note =>
         <div key={note.id}>
-          <Note title={note.title} content={note.content}/>&nbsp;
+          <Note id={note.id} title={note.title} content={note.content}/>&nbsp;
           <Button id={note.id} handleClick={handleDelete} value={note.title} text={'delete'} />
         </div>
       )}

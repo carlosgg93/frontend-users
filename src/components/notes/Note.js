@@ -1,6 +1,8 @@
-const Note = ({title, content}) => {
+import {Link} from 'react-router-dom';
+
+const Note = ({id, title, content}) => {
   return (
-    <span>{title}</span>
+    <Link to={`/notes/${id}`}>{title}</Link>
   )
   
 }

@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Title from '../components/common/Title.js'
 import Input from '../components/form/Input.js'
 import NotesList from '../components/notes/NotesList.js'
+import NoteDetails from '../components/notes/NoteDetails.js'
 import CreateNoteForm from '../components/form/CreateNoteForm.js'
 import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
 import { useDispatch, useSelector } from 'react-redux'
@@ -76,7 +77,7 @@ const NotesView = () => {
 
   return (
     <Routes>
-      <Route path='/notes'  element={
+      <Route path='/notes' element={
         <>
           <Title text={'Notes List'} />
           <Input onChange={handleChangeFilter} text={'Filter shown with'} value={filter} /><br/>
@@ -87,7 +88,11 @@ const NotesView = () => {
         </>
       } />
 
-      <Route path='/' element={
+      <Route path='/notes/:idNoteSelected'  element={
+          <NoteDetails notes={notes} />
+      } />
+
+      <Route path='/create' element={
         <>
           <Title text={'Create Note'} />
           <CreateNoteForm 

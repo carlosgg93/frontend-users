@@ -3,7 +3,7 @@ import Title from '../components/common/Title.js'
 import LoginForm from '../components/form/LoginForm.js'
 import {login} from '../services/login.js'
 
-const LoginView = ({ handleChangeToken }) => {
+const LoginView = ({ handleLogin }) => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -15,11 +15,11 @@ const LoginView = ({ handleChangeToken }) => {
     setPassword(event.target.value)
   }
 
-  const handleLogin = async(event) => {
+  const handleClickLogin = async(event) => {
     event.preventDefault()
     const user = await login({userName, password})
     if(user){
-      handleChangeToken(user)
+      handleLogin(user)
     }
     setUserName('')
     setPassword('')
@@ -30,7 +30,7 @@ const LoginView = ({ handleChangeToken }) => {
     <div>
       <Title text={'Login'} />
       <LoginForm 
-        onSubmit={handleLogin} 
+        onSubmit={handleClickLogin} 
         onChangeUserName={handleChangeUserName}
         onChangePassword={handleChangePassword}
         userName={userName}

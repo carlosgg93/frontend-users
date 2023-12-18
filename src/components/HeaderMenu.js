@@ -6,7 +6,7 @@ const HeaderMenu = () =>{
   return (
     <>
       <Link to={'/notes'}> Notes </Link>  
-      <Link to={'/'} > Create Note </Link>
+      <Link to={'/create'} > Create Note </Link>
     </>
   )
 }

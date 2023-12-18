@@ -1,20 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import LoginView from './views/LoginView.js'
-import NotesView from './views/NotesView.js'
+import HomeView from './views/HomeView.js'
 import {setToken} from './services/notes.js'
-import Toggable from './components/common/Toggable.js'
-import HeaderMenu from './components/HeaderMenu.js'
-import { BrowserRouter } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { initUser, logOutUser } from './reducers/userReducer.js'
 
 const App = () => {
 
-  const toggableRef = useRef()
   const dispatch = useDispatch()
-
-  const user = useSelector(state => state.user)
+  const navigation = useNavigate()
 
   useEffect(() => {
     const user = window.localStorage.getItem('user')
@@ -23,16 +19,18 @@ const App = () => {
       userLogged = JSON.parse(user);
       // setUser(userLogged)
       setToken(userLogged.token)
+      navigation('/')
+    }else{
+      navigation('/login')
     }
     dispatch(initUser(userLogged))
-  }, [dispatch])
-
+  }, [dispatch, navigation ])
 
   // const handleShowLoginButton = () =>{
   //   toggableRef.current.handleChangeVisibility()
   // }
 
-  const handleChangeToken = (user) => {
+  const handleLogin = (user) => {
     dispatch(initUser(user))
     setToken(user.token)
     window.localStorage.setItem('user', JSON.stringify(user))
@@ -46,19 +44,14 @@ const App = () => {
   }
   
   return (
-    <div>
-      {!user ? 
-          <LoginView handleChangeToken = {handleChangeToken} />
-        : <BrowserRouter>
-            <Toggable ref={toggableRef}>
-              <HeaderMenu />
-              <button type='button' onClick={handleLogout}>Logout</button>
-            </Toggable>
-            <NotesView />
-
-          </BrowserRouter>
-      }
-    </div>
+    <Routes>
+      <Route path='/login'  element={
+        <LoginView handleLogin = {handleLogin} />
+      } />
+      <Route path='/' element={
+        <HomeView handleLogout={handleLogout} />
+      } />
+    </Routes>
   )
 }
 
