@@ -1,22 +1,9 @@
-import { useRef } from 'react'
-import NotesView from './NotesView.js'
-import Toggable from '../components/common/Toggable.js'
-import HeaderMenu from '../components/HeaderMenu.js'
-import Button from '../components/form/Button.js'
-import { useSelector } from 'react-redux'
+import Title from '../components/common/Title.js'
 
-const HomeView = ({handleLogout}) => {
-  const toggableRef = useRef()
-  const user = useSelector(state => state.user)
+const HomeView = () => {
 
   return (
-    <>
-      <Button handleClick={handleLogout} text={'Logout'} /><br/><br/>
-      <Toggable ref={toggableRef}>
-        <HeaderMenu />
-      </Toggable>
-      <NotesView />
-    </>
+      <Title text={'HomeView'} />
   )
 }
 

@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
+
+import { initUser, logOutUser } from './reducers/userReducer.js'
+import {setToken} from './services/notes.js'
+
 import LoginView from './views/LoginView.js'
 import HomeView from './views/HomeView.js'
-import {setToken} from './services/notes.js'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import NotesView from './views/NotesView.js'
+import Header from './components/header/Header.js'
 
-import { useDispatch } from 'react-redux'
-import { initUser, logOutUser } from './reducers/userReducer.js'
 
 const App = () => {
 
   const dispatch = useDispatch()
   const navigation = useNavigate()
+  const location = useLocation()
+
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     const user = window.localStorage.getItem('user')
@@ -19,12 +26,15 @@ const App = () => {
       userLogged = JSON.parse(user);
       // setUser(userLogged)
       setToken(userLogged.token)
-      navigation('/')
+      if(location.pathname === '/login'){
+        navigation('/')
+      }
     }else{
       navigation('/login')
     }
+
     dispatch(initUser(userLogged))
-  }, [dispatch, navigation ])
+  }, [dispatch, navigation, location.pathname ])
 
   // const handleShowLoginButton = () =>{
   //   toggableRef.current.handleChangeVisibility()
@@ -34,6 +44,7 @@ const App = () => {
     dispatch(initUser(user))
     setToken(user.token)
     window.localStorage.setItem('user', JSON.stringify(user))
+    navigation('/')
   }
 
   const handleLogout = (event) => {
@@ -41,17 +52,27 @@ const App = () => {
     window.localStorage.removeItem('user')
     setToken(null)
     dispatch(logOutUser())
+    navigation('/login')
   }
   
   return (
-    <Routes>
-      <Route path='/login'  element={
-        <LoginView handleLogin = {handleLogin} />
-      } />
-      <Route path='/' element={
-        <HomeView handleLogout={handleLogout} />
-      } />
-    </Routes>
+    <> 
+      {user !== null ? 
+        <Header handleLogout={handleLogout}/>:null
+      }
+      
+      <Routes>
+        <Route path='/notes' element={
+          <NotesView />
+        } />
+        <Route path='/login'  element={
+          <LoginView handleLogin={handleLogin} />
+        } />
+        <Route path='/' element={
+          <HomeView />
+        } />
+      </Routes>
+    </>
   )
 }
 
