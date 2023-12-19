@@ -1,8 +1,7 @@
-import {Link} from 'react-router-dom';
 
-const Note = ({id, title, content}) => {
+const Note = ({id, title, content, handleClick}) => {
   return (
-    <Link to={`/notes/${id}`}>{title}</Link>
+    <a href onClick={handleClick}>{title}</a>
   )
   
 }
