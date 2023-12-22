@@ -1,10 +1,9 @@
-import Title from '../common/Title.js'
+import Title from '../common/Title.js';
 
-const HomeView = () => {
-
+function HomeView() {
   return (
-      <Title text={'HomeView'} />
-  )
+    <Title text="HomeView" />
+  );
 }
 
-export default HomeView
+export default HomeView;

@@ -1,43 +1,42 @@
-import React, { useState } from 'react'
-import Title from '../common/Title.js'
-import LoginForm from '../form/LoginForm.js'
-import {login} from '../../services/login.js'
+import React, { useState } from 'react';
+import Title from '../common/Title';
+import LoginForm from '../form/LoginForm';
+import { login } from '../../services/login';
 
-const LoginView = ({ handleLogin }) => {
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
+function LoginView({ handleLogin }) {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChangeUserName = (event) => {
-    setUserName(event.target.value)
-  }
+    setUserName(event.target.value);
+  };
 
   const handleChangePassword = (event) => {
-    setPassword(event.target.value)
-  }
+    setPassword(event.target.value);
+  };
 
-  const handleClickLogin = async(event) => {
-    event.preventDefault()
-    const user = await login({userName, password})
-    if(user){
-      handleLogin(user)
+  const handleClickLogin = async (event) => {
+    event.preventDefault();
+    const user = await login({ userName, password });
+    if (user) {
+      handleLogin(user);
     }
-    setUserName('')
-    setPassword('')
-    
-  }
+    setUserName('');
+    setPassword('');
+  };
 
-  return(
+  return (
     <div>
-      <Title text={'Login'} />
-      <LoginForm 
-        onSubmit={handleClickLogin} 
+      <Title text="Login" />
+      <LoginForm
+        onSubmit={handleClickLogin}
         onChangeUserName={handleChangeUserName}
         onChangePassword={handleChangePassword}
         userName={userName}
-        pwd={password} 
+        pwd={password}
       />
     </div>
-  )
+  );
 }
 
 export default LoginView;
