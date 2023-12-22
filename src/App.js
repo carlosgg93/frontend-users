@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 
-import { initUser, logOutUser } from './reducers/userReducer.js'
+import { initUser, logOutUser } from './store/userReducer.js'
 import {setToken} from './services/notes.js'
 
-import LoginView from './views/LoginView.js'
-import HomeView from './views/HomeView.js'
-import NotesView from './views/NotesView.js'
+import LoginView from './components/views/LoginView.js'
+import HomeView from './components/views/HomeView.js'
+import NotesView from './components/views/NotesView.js'
 import Header from './components/header/Header.js'
 
 
@@ -35,10 +35,6 @@ const App = () => {
 
     dispatch(initUser(userLogged))
   }, [dispatch, navigation, location.pathname ])
-
-  // const handleShowLoginButton = () =>{
-  //   toggableRef.current.handleChangeVisibility()
-  // }
 
   const handleLogin = (user) => {
     dispatch(initUser(user))

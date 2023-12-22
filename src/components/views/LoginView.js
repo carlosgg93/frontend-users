@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Title from '../components/common/Title.js'
-import LoginForm from '../components/form/LoginForm.js'
-import {login} from '../services/login.js'
+import Title from '../common/Title.js'
+import LoginForm from '../form/LoginForm.js'
+import {login} from '../../services/login.js'
 
 const LoginView = ({ handleLogin }) => {
   const [userName, setUserName] = useState('')

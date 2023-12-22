@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAllNotes, addNote, deleteNote} from '../services/notes.js'
-import { setNotes, newNote } from '../reducers/noteReducer.js'
+// import { getAllNotes, addNote, deleteNote} from '../../services/notes.js'
+import { getNotes, newNote, removeNote } from '../../store/noteReducer.js'
 
-import Title from '../components/common/Title.js'
-import NotesList from '../components/notes/NotesList.js'
-import NoteDetails from '../components/notes/NoteDetails.js'
-import CreateNoteForm from '../components/form/CreateNoteForm.js'
-import Input from '../components/form/Input.js'
-import Button from '../components/form/Button.js'
+import Title from '../common/Title.js'
+import NotesList from '../notes/NotesList.js'
+import NoteDetails from '../notes/NoteDetails.js'
+import CreateNoteForm from '../form/CreateNoteForm.js'
+import Input from '../form/Input.js'
+import Button from '../form/Button.js'
 
 const NotesView = () => {
 
@@ -24,12 +24,10 @@ const NotesView = () => {
 
   //ComponentDidMount
   useEffect(() => {
-    getAllNotes()
-      .then((response) => {
-        dispatch(setNotes(response))
-        setFilteredNotes(response)
-      })
-    },[dispatch]);
+    if(notes.length === 0){
+      dispatch(getNotes())
+    }
+  },[dispatch, notes]);
   
   //ComponentWillReceiveProps
   useEffect(() => {
@@ -47,16 +45,7 @@ const NotesView = () => {
   const handleClickDelete = (event) => {
     event.preventDefault()
     if(window.confirm(`Delete "${event.target.value}" note?`)){ 
-      deleteNote(event.target.id)
-      .then((response) => {
-        getAllNotes()
-          .then((response) => {
-            dispatch(setNotes(response))
-          })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      dispatch(removeNote(event.target.id))
     }
   }
 
@@ -67,8 +56,7 @@ const NotesView = () => {
       content: noteContent
     }
 
-    const noteCreated = await addNote(note)
-    dispatch(newNote(noteCreated))
+    dispatch(newNote(note))
 
     setNoteTitle('')
     setNoteContent('')
