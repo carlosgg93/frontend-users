@@ -1,9 +1,7 @@
+const Note = ({
+  id, title, content, handleClick,
+}) => (
+  <a href onClick={handleClick}>{title}</a>
+);
 
-const Note = ({id, title, content, handleClick}) => {
-  return (
-    <a href onClick={handleClick}>{title}</a>
-  )
-  
-}
-
-export default Note
+export default Note;

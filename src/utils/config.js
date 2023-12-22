@@ -1,3 +1,3 @@
 const { TEST } = process.env;
 
-export { TEST };
+export default { TEST };

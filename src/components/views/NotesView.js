@@ -11,7 +11,7 @@ import CreateNoteForm from '../form/CreateNoteForm';
 import Input from '../form/Input';
 import Button from '../form/Button';
 
-function NotesView() {
+const NotesView = () => {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
 
@@ -112,6 +112,6 @@ function NotesView() {
           )}
     </>
   );
-}
+};
 
 export default NotesView;

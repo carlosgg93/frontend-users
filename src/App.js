@@ -12,7 +12,7 @@ import HomeView from './components/views/HomeView';
 import NotesView from './components/views/NotesView';
 import Header from './components/header/Header';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const location = useLocation();

@@ -3,7 +3,7 @@ import Title from '../common/Title';
 import LoginForm from '../form/LoginForm';
 import { login } from '../../services/login';
 
-function LoginView({ handleLogin }) {
+const LoginView = ({ handleLogin }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -37,6 +37,6 @@ function LoginView({ handleLogin }) {
       />
     </div>
   );
-}
+};
 
 export default LoginView;
