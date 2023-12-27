@@ -1,6 +1,4 @@
-const Input = ({
-  text, onChange, value, placeholder,
-}) => (
+const Input = ({ text, onChange, value, placeholder }) => (
   <div className="input-form">
     <span>{text}</span>
     <br />

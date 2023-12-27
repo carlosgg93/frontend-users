@@ -1,6 +1,4 @@
-const Note = ({
-  id, title, content, handleClick,
-}) => (
+const Note = ({ title, handleClick }) => (
   <a href onClick={handleClick}>{title}</a>
 );
 

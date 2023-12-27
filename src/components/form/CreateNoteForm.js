@@ -1,9 +1,7 @@
 import Input from './Input';
 import Button from './Button';
 
-const CreateNoteForm = ({
-  onSubmit, onChangeTitle, onChangeContent, noteTitle, noteContent,
-}) => (
+const CreateNoteForm = ({ onSubmit, onChangeTitle, onChangeContent, noteTitle, noteContent }) => (
   <form onSubmit={onSubmit}>
     <Input onChange={onChangeTitle} text="Input Title" placeholder="Title" value={noteTitle} />
     <br />

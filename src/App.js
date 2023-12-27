@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Route, Routes, useNavigate, useLocation,
-} from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import { initUser, logOutUser } from './store/userReducer';
 import { setToken } from './services/notes';
@@ -78,6 +76,6 @@ const App = () => {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import Button from '../form/Button';
 import Toggable from '../common/Toggable';
-import NavBar from './NavBar';
+import NavBar from './Navbar';
 
 const Header = ({ handleLogout }) => {
   const toggableRef = useRef();
