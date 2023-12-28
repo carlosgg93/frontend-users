@@ -21,6 +21,7 @@
         "jsx-a11y/label-has-associated-control": "off",
         "no-unused-vars": "warn",
         "object-curly-newline": "off",
-        "max-len": ["error", { "code": 150, "tabWidth": 4 }]
+        "max-len": ["error", { "code": 150, "tabWidth": 4 }],
+        "no-param-reassign": ["error", { "props": true }]
     }
 }

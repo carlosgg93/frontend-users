@@ -71,45 +71,45 @@ const NotesView = () => {
 
   return (
     <>
-      {optionSelected === 'list'
-        ? (
-          <>
-            <Title text="Notes List" />
-            <Button handleClick={() => setOptionSelected('create')} text="Create Note" />
-            <br />
-            <br />
-            <Input onChange={handleChangeFilter} text="Filter shown with" value={filter} />
-            <br />
-            <NotesList
-              handleDelete={handleClickDelete}
-              handleClick={() => setOptionSelected('details')}
-              notes={filteredNotes}
-            />
-          </>
-        ) : optionSelected === 'create'
-          ? (
-            <>
-              <Title text="Create Note" />
-              <Button handleClick={() => setOptionSelected('list')} text="Notes List" />
-              <br />
-              <br />
-              <CreateNoteForm
-                onSubmit={handleSubmitCreateNote}
-                onChangeTitle={handleChangeTitle}
-                onChangeContent={handleChangeContent}
-                noteTitle={noteTitle}
-                noteContent={noteContent}
-              />
-            </>
-          ) : (
-            <>
-              <Title text="Note Details" />
-              <Button handleClick={() => setOptionSelected('list')} text="Go Back" />
-              <br />
-              <br />
-              <NoteDetails notes={notes} />
-            </>
-          )}
+      {optionSelected === 'list' && (
+        <>
+          <Title text="Notes List" />
+          <Button handleClick={() => setOptionSelected('create')} text="Create Note" />
+          <br />
+          <br />
+          <Input onChange={handleChangeFilter} text="Filter shown with" value={filter} />
+          <br />
+          <NotesList
+            handleDelete={handleClickDelete}
+            handleClick={() => setOptionSelected('details')}
+            notes={filteredNotes}
+          />
+        </>
+      )}
+      {optionSelected === 'create' && (
+        <>
+          <Title text="Create Note" />
+          <Button handleClick={() => setOptionSelected('list')} text="Notes List" />
+          <br />
+          <br />
+          <CreateNoteForm
+            onSubmit={handleSubmitCreateNote}
+            onChangeTitle={handleChangeTitle}
+            onChangeContent={handleChangeContent}
+            noteTitle={noteTitle}
+            noteContent={noteContent}
+          />
+        </>
+      )}
+      {optionSelected === 'details' && (
+        <>
+          <Title text="Note Details" />
+          <Button handleClick={() => setOptionSelected('list')} text="Go Back" />
+          <br />
+          <br />
+          <NoteDetails notes={notes} />
+        </>
+      )}
     </>
   );
 };

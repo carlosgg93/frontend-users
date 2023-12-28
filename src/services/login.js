@@ -8,4 +8,4 @@ const login = (credentials) => axios.post(baseUrl, credentials)
     console.log(error);
   });
 
-export default { login };
+export default login;

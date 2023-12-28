@@ -1,5 +1,4 @@
 import Input from './Input';
-import Button from './Button';
 
 const CreateNoteForm = ({ onSubmit, onChangeTitle, onChangeContent, noteTitle, noteContent }) => (
   <form onSubmit={onSubmit}>
@@ -7,7 +6,7 @@ const CreateNoteForm = ({ onSubmit, onChangeTitle, onChangeContent, noteTitle, n
     <br />
     <Input onChange={onChangeContent} text="Input Content" placeholder="Content" value={noteContent} />
     <br />
-    <Button type="submit" text="Create" />
+    <button type="submit">Create</button>
   </form>
 );
 

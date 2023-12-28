@@ -14,7 +14,7 @@ const Toggable = forwardRef(({ children }, ref) => {
 
   return (
     <>
-      <Button type="button" text={visible ? 'Hide Menu' : 'Show Menu'} handleClick={handleChangeVisibility} />
+      <Button text={visible ? 'Hide Menu' : 'Show Menu'} handleClick={handleChangeVisibility} />
 
       {visible && children}
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Title from '../common/Title';
 import LoginForm from '../form/LoginForm';
-import { login } from '../../services/login';
+import login from '../../services/login';
 
 const LoginView = ({ handleLogin }) => {
   const [userName, setUserName] = useState('');

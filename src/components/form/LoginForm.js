@@ -1,5 +1,4 @@
 import Input from './Input';
-import Button from './Button';
 
 const LoginForm = ({ onSubmit, onChangeUserName, onChangePassword, userName, pwd }) => (
   <form onSubmit={onSubmit}>
@@ -7,7 +6,7 @@ const LoginForm = ({ onSubmit, onChangeUserName, onChangePassword, userName, pwd
     <br />
     <Input onChange={onChangePassword} text="Input password" value={pwd} placeholder="Password" />
     <br />
-    <Button type="submit" text="Login" />
+    <button type="submit">Login</button>
   </form>
 );
 

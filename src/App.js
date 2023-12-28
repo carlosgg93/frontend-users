@@ -18,10 +18,10 @@ const App = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const user = window.localStorage.getItem('user');
+    const usr = window.localStorage.getItem('user');
     let userLogged = null;
-    if (user != null && user !== 'null') {
-      userLogged = JSON.parse(user);
+    if (usr != null && usr !== 'null') {
+      userLogged = JSON.parse(usr);
       // setUser(userLogged)
       setToken(userLogged.token);
       if (location.pathname === '/login') {
@@ -34,10 +34,10 @@ const App = () => {
     dispatch(initUser(userLogged));
   }, [dispatch, navigation, location.pathname]);
 
-  const handleLogin = (user) => {
-    dispatch(initUser(user));
-    setToken(user.token);
-    window.localStorage.setItem('user', JSON.stringify(user));
+  const handleLogin = (usr) => {
+    dispatch(initUser(usr));
+    setToken(usr.token);
+    window.localStorage.setItem('user', JSON.stringify(usr));
     navigation('/');
   };
 
