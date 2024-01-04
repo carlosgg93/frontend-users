@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import { getAllNotes, addNote, deleteNote} from '../../services/notes.js'
-import { getNotes, newNote, removeNote } from '../../store/noteReducer';
+import { getAllNotesAsync, addNoteAsync, deleteNoteAsync } from '../../store/noteReducer';
 
 import Title from '../common/Title';
 import NotesList from '../notes/NotesList';
@@ -13,7 +13,7 @@ import Button from '../form/Button';
 
 const NotesView = () => {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state.notes);
+  const notes = useSelector((state) => state.notes.noteList);
 
   const [noteTitle, setNoteTitle] = useState('');
   const [noteContent, setNoteContent] = useState('');
@@ -24,7 +24,7 @@ const NotesView = () => {
   // ComponentDidMount
   useEffect(() => {
     if (notes.length === 0) {
-      dispatch(getNotes());
+      dispatch(getAllNotesAsync());
     }
   }, [dispatch, notes]);
 
@@ -42,7 +42,7 @@ const NotesView = () => {
   const handleClickDelete = (event) => {
     event.preventDefault();
     if (window.confirm(`Delete "${event.target.value}" note?`)) {
-      dispatch(removeNote(event.target.id));
+      dispatch(deleteNoteAsync(event.target.id));
     }
   };
 
@@ -53,7 +53,7 @@ const NotesView = () => {
       content: noteContent,
     };
 
-    dispatch(newNote(note));
+    dispatch(addNoteAsync(note));
 
     setNoteTitle('');
     setNoteContent('');

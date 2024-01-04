@@ -22,6 +22,6 @@
         "no-unused-vars": "warn",
         "object-curly-newline": "off",
         "max-len": ["error", { "code": 150, "tabWidth": 4 }],
-        "no-param-reassign": ["error", { "props": true }]
+        "no-param-reassign": ["error", { "ignoreParamsNamed": ["state"], "props": false }]
     }
 }

@@ -3,7 +3,7 @@ import Note from './Note';
 
 const NotesList = ({ notes, handleDelete, handleClick }) => (
   <div>
-    {notes && notes.map((note) => (
+    {notes && notes.length > 0 && notes.map((note) => (
       <div key={note.id}>
         <Note id={note.id} title={note.title} content={note.content} handleClick={handleClick} />
         &nbsp;

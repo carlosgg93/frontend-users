@@ -3,42 +3,66 @@ import { getAllNotes, addNote, deleteNote } from '../services/notes';
 
 const initialState = {
   loading: false,
-  notes: [],
+  noteList: [],
   error: '',
 };
 
-export const fetchAllNotes = createAsyncThunk('notes/getNotes', async () => {
+export const getAllNotesAsync = createAsyncThunk('notes/getAllNotes', async () => {
   const response = await getAllNotes();
+  return response;
+});
+
+export const addNoteAsync = createAsyncThunk('notes/addNote', async (note) => {
+  const response = await addNote(note);
+  return response;
+});
+
+export const deleteNoteAsync = createAsyncThunk('notes/deleteNote', async (noteId) => {
+  const response = await deleteNote(noteId);
   return response;
 });
 
 const notesSlice = createSlice({
   name: 'notes',
   initialState,
-  // reducers: {
-  //   getNotes: (notes, action) => [...action.payload],
-  //   newNote: (notes, action) => {
-  //     notes.push(action.payload);
-  //   },
-  //   removeNote: (notes, action) => {
-  //     notes.filter((note) => note.id !== action.payload);
-  //   },
-  // },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllNotes.pending, (state) => {
+      .addCase(getAllNotesAsync.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchAllNotes.fulfilled, (state, action) => {
+      .addCase(getAllNotesAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.notes = action.payload;
+        state.noteList = action.payload;
       })
-      .addCase(fetchAllNotes.rejected, (state, action) => {
+      .addCase(getAllNotesAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        state.noteList = [];
+      })
+      .addCase(addNoteAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addNoteAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.noteList.push(action.payload);
+      })
+      .addCase(addNoteAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteNoteAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteNoteAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.noteList = state.noteList.filter((note) => note.id !== action.payload);
+      })
+      .addCase(deleteNoteAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export const { newNote, getNotes, removeNote } = notesSlice.actions;
+// export const { newNote, getNotes, removeNote } = notesSlice.actions;
 export default notesSlice.reducer;
