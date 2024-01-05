@@ -1,11 +1,25 @@
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../services/notes';
+import { logOutUserAsync } from '../../store/userReducer';
 
 import Button from '../form/Button';
 import Toggable from '../common/Toggable';
 import NavBar from './Navbar';
 
-const Header = ({ handleLogout }) => {
+const Header = () => {
   const toggableRef = useRef();
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    window.localStorage.removeItem('user');
+    setToken(null);
+    dispatch(logOutUserAsync());
+    navigation('/login');
+  };
 
   return (
     <>

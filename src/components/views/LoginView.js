@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Title from '../common/Title';
 import LoginForm from '../form/LoginForm';
-import login from '../../services/login';
+import { loginUserAsync } from '../../store/userReducer';
 
-const LoginView = ({ handleLogin }) => {
+const LoginView = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,12 +20,16 @@ const LoginView = ({ handleLogin }) => {
     setPassword(event.target.value);
   };
 
-  const handleClickLogin = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    const user = await login({ userName, password });
-    if (user) {
-      handleLogin(user);
-    }
+    const user = {
+      username: userName,
+      password,
+    };
+
+    dispatch(loginUserAsync(user));
+    navigation('/');
+
     setUserName('');
     setPassword('');
   };
@@ -29,7 +38,7 @@ const LoginView = ({ handleLogin }) => {
     <div>
       <Title text="Login" />
       <LoginForm
-        onSubmit={handleClickLogin}
+        onSubmit={handleLogin}
         onChangeUserName={handleChangeUserName}
         onChangePassword={handleChangePassword}
         userName={userName}
