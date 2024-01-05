@@ -57,6 +57,7 @@ const NotesView = () => {
 
     setNoteTitle('');
     setNoteContent('');
+    setOptionSelected('list');
   };
 
   const handleChangeTitle = (event) => {
