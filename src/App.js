@@ -7,17 +7,16 @@ import HomeView from './components/views/HomeView';
 import NotesView from './components/views/NotesView';
 import Header from './components/header/Header';
 
-import { getToken } from './utils/localStorage';
+import { isLogged } from './utils/localStorage';
 
 const App = () => {
   const navigation = useNavigate();
   const location = useLocation();
 
-  const isLogged = useSelector((state) => state.user.isLogged);
+  const userLogged = useSelector((state) => state.user.isLogged);
 
   useEffect(() => {
-    const token = getToken();
-    if (token != null) {
+    if (isLogged()) {
       if (location.pathname === '/login') {
         navigation('/');
       }
@@ -28,7 +27,7 @@ const App = () => {
 
   return (
     <>
-      {isLogged
+      {userLogged
         ? <Header /> : null}
 
       <Routes>
