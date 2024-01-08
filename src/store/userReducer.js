@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import loginUser from '../services/login';
 import registerUser from '../services/register';
 
+import { setToken, removeToken } from '../utils/localStorage';
+
 const initialState = {
   loading: false,
   isLogged: false,
-  user: '',
-  token: '',
   response: null,
   error: '',
 };
@@ -17,7 +17,6 @@ export const loginUserAsync = createAsyncThunk('user/loginUser', async (user) =>
 });
 
 export const logOutUserAsync = createAsyncThunk('user/logOutUser', async () => {
-  // const response = await logOutUser();
   // return response;
 });
 
@@ -37,8 +36,7 @@ const userSlice = createSlice({
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
-        state.user = action.payload;
-        state.token = action.payload.token;
+        setToken(action.payload.token);
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.loading = false;
@@ -53,6 +51,18 @@ const userSlice = createSlice({
         state.response = action.payload;
       })
       .addCase(registerUserAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(logOutUserAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logOutUserAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLogged = false;
+        removeToken();
+      })
+      .addCase(logOutUserAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

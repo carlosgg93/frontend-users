@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setToken } from '../../services/notes';
 import { logOutUserAsync } from '../../store/userReducer';
 
 import Button from '../form/Button';
@@ -15,8 +14,7 @@ const Header = () => {
 
   const handleLogout = (event) => {
     event.preventDefault();
-    window.localStorage.removeItem('user');
-    setToken(null);
+    // window.localStorage.removeItem('user');
     dispatch(logOutUserAsync());
     navigation('/login');
   };
