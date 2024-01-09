@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import LoginView from './components/views/LoginView';
@@ -7,27 +7,33 @@ import HomeView from './components/views/HomeView';
 import NotesView from './components/views/NotesView';
 import Header from './components/header/Header';
 
+import { setUserAsync } from './store/userReducer';
 import { isLogged } from './utils/localStorage';
 
 const App = () => {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
 
-  const userLogged = useSelector((state) => state.user.isLogged);
+  const isAuthenticated = useSelector((state) => state.user.isLogged);
 
   useEffect(() => {
-    if (isLogged()) {
-      if (location.pathname === '/login') {
+    if (!isAuthenticated) {
+      const logged = isLogged();
+      if (logged) {
+        dispatch(setUserAsync(logged));
         navigation('/');
+      } else {
+        navigation('/login');
       }
     } else {
-      navigation('/login');
+      navigation(location.pathname === '/login' ? '/' : location.pathname);
     }
-  }, [navigation, location.pathname]);
+  }, [navigation, dispatch, isLogged, isAuthenticated]);
 
   return (
     <>
-      {userLogged
+      {isAuthenticated
         ? <Header /> : null}
 
       <Routes>
