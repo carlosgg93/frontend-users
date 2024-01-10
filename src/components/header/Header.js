@@ -5,7 +5,7 @@ import { logOutUserAsync } from '../../store/userReducer';
 
 import Button from '../form/Button';
 import Toggable from '../common/Toggable';
-import NavBar from './Navbar';
+import NavBar from './NavBar';
 
 const Header = () => {
   const toggableRef = useRef();
