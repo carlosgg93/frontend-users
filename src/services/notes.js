@@ -12,7 +12,7 @@ export const getAllNotes = async () => {
 export const addNote = async (note) => {
   const response = await api({
     method: 'post',
-    url: '/notes',
+    url: 'notes',
     body: note,
   });
 
@@ -22,7 +22,7 @@ export const addNote = async (note) => {
 export const deleteNote = async (id) => {
   const response = await api({
     method: 'delete',
-    url: `/notes/${id}`,
+    url: `notes/${id}`,
   });
 
   return response;
@@ -31,7 +31,7 @@ export const deleteNote = async (id) => {
 export const updateNote = async (id, note) => {
   const response = await api({
     method: 'put',
-    url: `/notes/${id}`,
+    url: `notes/${id}`,
     body: note,
   });
 
