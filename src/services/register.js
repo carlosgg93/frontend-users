@@ -1,11 +1,13 @@
-import axios from 'axios';
+import api from './api';
 
-const baseUrl = 'http://localhost:3001/api/register';
-
-const registerUser = (user) => axios.post(baseUrl, user)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log(error);
+const registerUser = async (user) => {
+  const response = await api({
+    method: 'post',
+    url: 'register',
+    body: user,
   });
+
+  return response;
+};
 
 export default registerUser;

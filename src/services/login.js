@@ -1,11 +1,13 @@
-import axios from 'axios';
+import api from './api';
 
-const baseUrl = 'http://localhost:3001/api/login';
-
-const loginUser = (credentials) => axios.post(baseUrl, credentials)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log(error);
+const loginUser = async (credentials) => {
+  const respone = await api({
+    method: 'post',
+    url: 'login',
+    body: credentials,
   });
+
+  return respone;
+};
 
 export default loginUser;

@@ -1,47 +1,39 @@
-import axios from 'axios';
+import api from './api';
 
-const baseUrl = 'http://localhost:3001/api/notes';
-
-let token = null;
-
-export const setToken = (newToken) => {
-  token = `Bearer ${newToken}`;
-};
-
-export const getAllNotes = () => axios.get(baseUrl)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log(error);
+export const getAllNotes = async () => {
+  const response = await api({
+    method: 'get',
+    url: 'notes',
   });
 
-export const addNote = (note) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: token,
-  };
-
-  return axios.post(baseUrl, note, { headers })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
+  return response;
 };
 
-export const deleteNote = (id) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: token,
-  };
-
-  return axios.delete(`${baseUrl}/${id}`, { headers })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const updateNote = (id, note) => axios.put(`${baseUrl}/${id}`, note)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log(error);
+export const addNote = async (note) => {
+  const response = await api({
+    method: 'post',
+    url: '/notes',
+    body: note,
   });
+
+  return response;
+};
+
+export const deleteNote = async (id) => {
+  const response = await api({
+    method: 'delete',
+    url: `/notes/${id}`,
+  });
+
+  return response;
+};
+
+export const updateNote = async (id, note) => {
+  const response = await api({
+    method: 'put',
+    url: `/notes/${id}`,
+    body: note,
+  });
+
+  return response;
+};
