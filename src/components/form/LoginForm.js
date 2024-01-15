@@ -1,13 +1,17 @@
-import Input from './Input';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 const LoginForm = ({ onSubmit, onChangeUserName, onChangePassword, userName, pwd }) => (
-  <form onSubmit={onSubmit}>
-    <Input onChange={onChangeUserName} text="Input Name" value={userName} placeholder="Username" />
-    <br />
-    <Input onChange={onChangePassword} text="Input password" value={pwd} placeholder="Password" />
-    <br />
-    <button type="submit">Login</button>
-  </form>
+  <Form onSubmit={onSubmit}>
+    <FormGroup>
+      <Label for="title">Input Title</Label>
+      <Input type="text" onChange={onChangeUserName} value={userName} placeholder="Username" />
+    </FormGroup>
+    <FormGroup>
+      <Label for="title">Input Title</Label>
+      <Input type="password" onChange={onChangePassword} value={pwd} placeholder="Password" />
+    </FormGroup>
+    <Button>Login</Button>
+  </Form>
 );
 
 export default LoginForm;

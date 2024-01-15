@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import { getAllNotes, addNote, deleteNote} from '../../services/notes.js'
-import { getAllNotesAsync, addNoteAsync, deleteNoteAsync } from '../../store/noteReducer';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { getAllNotesAsync, addNoteAsync, deleteNoteAsync } from '../../store/noteSlice';
 
-import Title from '../common/Title';
 import NotesList from '../notes/NotesList';
 import NoteDetails from '../notes/NoteDetails';
 import CreateNoteForm from '../form/CreateNoteForm';
-import Input from '../form/Input';
 import Button from '../form/Button';
 
 const NotesView = () => {
@@ -71,15 +70,19 @@ const NotesView = () => {
   };
 
   return (
-    <>
+    <div className="container">
       {optionSelected === 'list' && (
         <>
-          <Title text="Notes List" />
           <Button handleClick={() => setOptionSelected('create')} text="Create Note" />
           <br />
           <br />
-          <Input onChange={handleChangeFilter} text="Filter shown with" value={filter} />
-          <br />
+          <Form>
+            <FormGroup>
+              <Label for="title">Filter showns with</Label>
+              <Input type="text" onChange={handleChangeFilter} value={filter} placeholder="Filter" />
+            </FormGroup>
+          </Form>
+
           <NotesList
             handleDelete={handleClickDelete}
             handleClick={() => setOptionSelected('details')}
@@ -89,7 +92,6 @@ const NotesView = () => {
       )}
       {optionSelected === 'create' && (
         <>
-          <Title text="Create Note" />
           <Button handleClick={() => setOptionSelected('list')} text="Notes List" />
           <br />
           <br />
@@ -104,14 +106,13 @@ const NotesView = () => {
       )}
       {optionSelected === 'details' && (
         <>
-          <Title text="Note Details" />
           <Button handleClick={() => setOptionSelected('list')} text="Go Back" />
           <br />
           <br />
           <NoteDetails notes={notes} />
         </>
       )}
-    </>
+    </div>
   );
 };
 

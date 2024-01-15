@@ -7,8 +7,10 @@ import HomeView from './components/views/HomeView';
 import NotesView from './components/views/NotesView';
 import Header from './components/header/Header';
 
-import { setUserAsync } from './store/userReducer';
+import { setUserAsync } from './store/userSlice';
 import { isLogged } from './utils/localStorage';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const navigation = useNavigate();

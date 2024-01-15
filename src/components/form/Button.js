@@ -1,5 +1,7 @@
+import { Button as BSButton } from 'reactstrap';
+
 const Button = ({ id, handleClick, value, text }) => (
-  <button id={id} type="button" onClick={handleClick} value={value}>{text}</button>
+  <BSButton id={id} type="button" onClick={handleClick} value={value} color="primary" size="sm" outline>{text}</BSButton>
 );
 
 export default Button;

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Title from '../common/Title';
 import LoginForm from '../form/LoginForm';
-import { loginUserAsync } from '../../store/userReducer';
+import { loginUserAsync } from '../../store/userSlice';
 
 const LoginView = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const LoginView = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <Title text="Login" />
       <LoginForm
         onSubmit={handleLogin}
