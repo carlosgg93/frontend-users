@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -33,10 +33,14 @@ const NavBar = () => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <NavLink href="/">Home</NavLink>
+            <NavLink>
+              <Link to="/">Home</Link>
+            </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/notes">Notes</NavLink>
+            <NavLink>
+              <Link to="/notes">Notes</Link>
+            </NavLink>
           </NavItem>
           <NavItem>
             <NavLink onClick={handleLogout}>Logout</NavLink>
